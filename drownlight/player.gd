@@ -7,6 +7,9 @@ var dead = false
 
 signal health_changed(new_health, max_health)
 
+func _ready():
+	add_to_group("player")
+
 func _physics_process(_delta):
 	if dead:
 		return
@@ -16,12 +19,6 @@ func _physics_process(_delta):
 	)
 	velocity = dir.normalized() * speed
 	move_and_slide()
-
-	for i in range(get_slide_collision_count()):
-		var collider = get_slide_collision(i).get_collider()
-		if collider and collider.is_in_group("gold"):
-			get_parent().gold_collected()
-			collider.queue_free()
 
 func take_damage(amount: float):
 	if dead:
@@ -37,7 +34,3 @@ func die():
 		return
 	dead = true
 	get_tree().reload_current_scene()
-
-func _on_DeathD_body_entered(body):
-	if body.is_in_group("tentacle"):
-		take_damage(25.0)  # each tentacle hit = 25 damage (4 hits to die — hard!)

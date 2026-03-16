@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://b4t40use5twb2"]
 
-[ext_resource type="Script" path="res://deeptrench.gd" id="1_12xhh"]
+[ext_resource type="Script" uid="uid://ccwkp7nnswua2" path="res://deeptrench.gd" id="1_12xhh"]
 [ext_resource type="Texture2D" uid="uid://dctdns0mx6t2l" path="res://deeptrench.png" id="1_rv1f8"]
 [ext_resource type="Script" uid="uid://dbedmkrw8a8ek" path="res://kraken.gd" id="2_eyd2c"]
 [ext_resource type="Script" uid="uid://bxk0q0v7wnau2" path="res://player.gd" id="3_kvt5l"]
 [ext_resource type="Texture2D" uid="uid://clavxq70bjlta" path="res://kraken.png" id="4_ac7jq"]
+[ext_resource type="PackedScene" uid="uid://b4l3byl14x3lk" path="res://tentacle.tscn" id="4_w147e"]
 [ext_resource type="Texture2D" uid="uid://buiro0q8wee4u" path="res://swimming.png" id="5_5o732"]
 [ext_resource type="Script" uid="uid://dfbnb6nou3nde" path="res://canvas_layer.gd" id="7_q1yhv"]
 
@@ -24,6 +25,7 @@ texture = ExtResource("1_rv1f8")
 
 [node name="kraken" type="Node2D" parent="." unique_id=1263238572]
 script = ExtResource("2_eyd2c")
+tentacle_scene = ExtResource("4_w147e")
 
 [node name="Sprite2D" type="Sprite2D" parent="kraken" unique_id=250493179]
 position = Vector2(959, 350)
@@ -57,27 +59,19 @@ position = Vector2(1, -11)
 [node name="relic" type="Sprite2D" parent="." unique_id=537366406]
 
 [node name="SurvivalTimer" type="Timer" parent="." unique_id=193572983]
-wait_time = 45.0
+wait_time = 30.0
 one_shot = true
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1739847849]
 script = ExtResource("7_q1yhv")
+drain_oxygen = false
 
 [node name="oxygenbar" type="ProgressBar" parent="CanvasLayer" unique_id=1533413503]
 offset_left = 4.0
 offset_top = 2.0
 offset_right = 1163.0
 offset_bottom = 51.0
-
-[node name="tobecontinued" type="Label" parent="CanvasLayer" unique_id=896663782]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 80
-text = "TO BE CONTINUED..."
 
 [connection signal="timeout" from="kraken/AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="player/DeathDetector" to="." method="_on_death_detector_body_entered"]

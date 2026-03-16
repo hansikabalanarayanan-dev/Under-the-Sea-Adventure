@@ -11,11 +11,10 @@ func _ready():
 func _process(delta):
 	position += direction * speed * delta
 	lifetime += delta
-
 	if lifetime > 3.0:
 		queue_free()
 
 func _on_body_entered(body):
 	if body.is_in_group("player"):
-		body.die()
+		body.take_damage(25.0)
 		queue_free()
